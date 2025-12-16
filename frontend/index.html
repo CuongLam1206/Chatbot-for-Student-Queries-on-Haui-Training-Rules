@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic RAG - HaUI Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar with conversations list -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>💬 Conversations</h2>
+                <button class="btn-new-conversation" id="newConversationBtn" title="New Conversation">
+                    <span class="icon">+</span>
+                </button>
+            </div>
+            
+            <div class="conversations-list" id="conversationsList">
+                <!-- Conversations will be loaded here -->
+                <div class="loading-conversations">
+                    <div class="spinner"></div>
+                    <p>Loading conversations...</p>
+                </div>
+            </div>
+            
+            <button class="sidebar-toggle" id="sidebarToggle" title="Toggle Sidebar">
+                <span class="toggle-icon">◀</span>
+            </button>
+        </aside>
+        
+        <!-- Main chat area -->
+        <main class="chat-container">
+            <header class="chat-header">
+                <div class="header-content">
+                    <h1>🤖 Agentic RAG Assistant</h1>
+                    <p class="header-subtitle">Trợ lý tư vấn - Đại học Công nghiệp Hà Nội</p>
+                </div>
+                <div class="header-info">
+                    <span class="status-indicator" id="statusIndicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Connected</span>
+                    </span>
+                </div>
+            </header>
+            
+            <div class="messages-container" id="messagesContainer">
+                <!-- Welcome message -->
+                <div class="welcome-message">
+                    <div class="welcome-icon">🎯</div>
+                    <h2>Chào mừng đến với Agentic RAG!</h2>
+                    <p>Tôi là trợ lý AI thông minh, có thể giúp bạn:</p>
+                    <ul>
+                        <li>🔍 Trả lời câu hỏi về quy chế đào tạo</li>
+                        <li>📋 Tìm kiếm thông tin nhanh chóng</li>
+                        <li>💡 Giải thích các điều khoản phức tạp</li>
+                        <li>📚 Tham khảo nguồn gốc thông tin</li>
+                    </ul>
+                    <p class="welcome-footer">Hãy bắt đầu bằng cách đặt câu hỏi bên dưới!</p>
+                </div>
+            </div>
+            
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Nhập câu hỏi của bạn..." 
+                        rows="1"
+                        maxlength="2000"
+                    ></textarea>
+                    <button class="btn-send" id="sendBtn" title="Send message">
+                        <span class="send-icon">➤</span>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <span class="char-counter" id="charCounter">0 / 2000</span>
+                    <span class="input-hint">Press Enter to send, Shift+Enter for new line</span>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Delete confirmation modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <h3>Xác nhận xóa</h3>
+            <p>Bạn có chắc chắn muốn xóa cuộc hội thoại này?</p>
+            <p class="modal-warning">Hành động này không thể hoàn tác!</p>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="cancelDeleteBtn">Hủy</button>
+                <button class="btn-confirm-delete" id="confirmDeleteBtn">Xóa</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
