@@ -468,7 +468,7 @@ MIT License
 
 ## 👥 Authors
 
-Đại học Công nghiệp Hà Nội - NCKH 2025-2026
+Github: https://github.com/CuongLam1206
 
 ---
 
