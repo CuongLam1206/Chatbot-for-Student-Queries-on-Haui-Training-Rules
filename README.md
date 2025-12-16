@@ -1,4 +1,4 @@
-# 🤖 Agentic RAG System
+# 🤖 Chatbot System
 
 Hệ thống **Agentic RAG** (Retrieval-Augmented Generation) thông minh cho tư vấn Quy chế Đào tạo - Đại học Công nghiệp Hà Nội.
 
