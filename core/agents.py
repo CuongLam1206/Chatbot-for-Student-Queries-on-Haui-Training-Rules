@@ -223,14 +223,40 @@ class QueryAnalyzerAgent:
         if not history or len(history) < 2:
             return "Bạn chưa hỏi câu nào trước đó trong cuộc hội thoại này."
         
-        # Lấy câu hỏi cuối cùng của user (bỏ qua câu hiện tại)
+        # Lấy TẤT CẢ câu hỏi của user
         user_messages = [msg for msg in history if msg.get("role") == "user"]
         
-        if len(user_messages) >= 1:
+        if not user_messages:
+            return "Tôi không tìm thấy câu hỏi nào của bạn trong cuộc hội thoại này."
+        
+        query_lower = query.lower()
+        
+        # Phân biệt: hỏi TẤT CẢ vs chỉ câu TRƯỚC
+        all_questions_patterns = [
+            "tất cả", "all", "toàn bộ", "những câu", "các câu",
+            "danh sách", "list", "lịch sử"
+        ]
+        
+        ask_for_all = any(pattern in query_lower for pattern in all_questions_patterns)
+        
+        if ask_for_all and len(user_messages) > 1:
+            # Trả về TẤT CẢ câu hỏi
+            response = f"📝 Bạn đã hỏi tổng cộng {len(user_messages)} câu hỏi trong cuộc hội thoại này:\n\n"
+            
+            for idx, msg in enumerate(user_messages, 1):
+                question = msg.get("content", "")
+                # Giới hạn độ dài hiển thị
+                if len(question) > 80:
+                    question = question[:77] + "..."
+                response += f"{idx}. {question}\n"
+            
+            response += "\nBạn muốn hỏi thêm về vấn đề nào không?"
+            return response
+        else:
+            # Chỉ trả về câu CUỐI CÙNG
             last_question = user_messages[-1].get("content", "")
             return f'Câu hỏi trước đó của bạn là: "{last_question}"\n\nBạn có muốn hỏi thêm về vấn đề này không?'
-        else:
-            return "Tôi không tìm thấy câu hỏi trước đó của bạn."
+
     
     def _handle_chitchat(self, query: str) -> str:
         """Xử lý chitchat"""
